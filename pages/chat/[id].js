@@ -12,7 +12,7 @@ function ChatPage ({ chat, messages }) {
   const [user] = useAuthState(creds)
 
   return (
-    <div className='overflow-hidden'>
+    <div className='overflow-hidden h-screen'>
       <Head>
         <title>Chat-area</title>
       </Head>
@@ -26,11 +26,11 @@ function ChatPage ({ chat, messages }) {
         flex-1
         overflow-scroll
         scrollbar-hide
-        h-[100vh]
+        h-[90vh]
         '
         >
           {/**ChatFeed */}
-          <Feed />
+          <Feed chat={chat} />
         </div>
       </main>
     </div>

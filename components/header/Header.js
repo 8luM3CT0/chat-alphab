@@ -6,7 +6,7 @@ import {
   QuestionMarkCircleIcon,
   CogIcon
 } from '@heroicons/react/outline'
-import { Apps } from '@material-ui/icons'
+import { ViewGridIcon } from '@heroicons/react/solid'
 //back-end
 import { creds, store } from '../../firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -91,7 +91,7 @@ function Header () {
         </span>
         <QuestionMarkCircleIcon className='userIcons' />
         <CogIcon className='userIcons' />
-        <Apps className='userIcons' />
+        <ViewGridIcon className='userIcons' />
         <img
           onClick={() => creds.signOut()}
           src={user?.photoURL}

@@ -20,4 +20,12 @@
     hover:text-gray-400
     cursor-pointer
     }
+
+    .headerIcon{
+        @apply
+        rounded-full 
+        h-8 
+        text-gray-500 
+        cursor-pointer
+    }
 }
