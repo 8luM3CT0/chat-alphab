@@ -21,8 +21,10 @@
     cursor-pointer
     }
 
-    .headerIcon{
+    .inputIcon{
         @apply
+        hidden
+        lg:inline-flex
         rounded-full 
         h-8 
         text-gray-500 

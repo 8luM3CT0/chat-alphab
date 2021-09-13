@@ -160,12 +160,12 @@ function Feed ({ chat, messages }) {
             Send
           </button>
           <div className='justify-end flex items-center space-x-4 mr-3'>
-            <EmojiHappyIcon className='headerIcon' />
-            <DocumentAddIcon className='headerIcon' />
-            <ExternalLinkIcon className='headerIcon' />
-            <ArchiveIcon className='headerIcon' />
-            <VideoCameraIcon className='headerIcon' />
-            <CalendarIcon className='headerIcon' />
+            <EmojiHappyIcon className='inputIcon' />
+            <DocumentAddIcon className='inputIcon' />
+            <ExternalLinkIcon className='inputIcon' />
+            <ArchiveIcon className='inputIcon' />
+            <VideoCameraIcon className='inputIcon' />
+            <CalendarIcon className='inputIcon' />
           </div>
         </div>
         <ArrowCircleRightIcon
