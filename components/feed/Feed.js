@@ -11,6 +11,7 @@ import {
   CalendarIcon,
   ArrowCircleRightIcon
 } from '@heroicons/react/outline'
+import Message from './Message'
 //back-end
 import firebase from 'firebase'
 import { useRouter } from 'next/router'
@@ -33,6 +34,43 @@ function Feed ({ chat, messages }) {
   const receiverEmail = getReceiver(chat.users, user)
   //message parts
   const [input, setInput] = useState('')
+  const endOfChatRef = useRef(null)
+  const [messageSnapshot] = useCollection(
+    store
+      .collection('chats')
+      .doc(router.query.id)
+      .collection('messages')
+      .orderBy('timestamp', 'asc')
+  )
+
+  const showFeed = () => {
+    if (messageSnapshot) {
+      return messageSnapshot.docs.map(message => (
+        <Message
+          key={message.id}
+          user={message.data().user}
+          message={{
+            ...message.data(),
+            timestamp: message
+              .data()
+              .timestamp?.toDate()
+              .getTime()
+          }}
+        />
+      ))
+    } else {
+      return JSON.parse(messages).map(message => (
+        <Message key={message.id} user={message.user} message={message} />
+      ))
+    }
+  }
+
+  const scrollDown = () => {
+    endOfChatRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
 
   const chatUser = e => {
     e.preventDefault()
@@ -53,7 +91,7 @@ function Feed ({ chat, messages }) {
       .collection('messages')
       .add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        messgae: input,
+        message: input,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL
@@ -120,6 +158,8 @@ function Feed ({ chat, messages }) {
       '
       >
         {/**chatOutput() */}
+        {showFeed()}
+        <div className='mb-[30px]' ref={endOfChatRef} />
       </div>
       <form
         className='

@@ -30,7 +30,7 @@ function ChatPage ({ chat, messages }) {
         '
         >
           {/**ChatFeed */}
-          <Feed chat={chat} />
+          <Feed chat={chat} messages={messages} />
         </div>
       </main>
     </div>
@@ -42,6 +42,21 @@ export default ChatPage
 export async function getServerSideProps (context) {
   const ref = store.collection('chats').doc(context.query.id)
 
+  const messageRes = await ref
+    .collection('messages')
+    .orderBy('timestamp', 'asc')
+    .get()
+
+  const messages = messageRes.docs
+    .map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
+    .map(messages => ({
+      ...messages,
+      timestamp: messages.timestamp.toDate().getTime()
+    }))
+
   const chatRes = await ref.get()
   const chat = {
     id: chatRes.id,
@@ -50,7 +65,8 @@ export async function getServerSideProps (context) {
 
   return {
     props: {
-      chat: chat
+      chat: chat,
+      messages: JSON.stringify(messages)
     }
   }
 }
